@@ -1110,7 +1110,8 @@ public class HuntRunner(IServiceScopeFactory scopes, HunterOptions opts, ILogger
     public static string VideoPath(HunterOptions opts, string hunt)
     {
         // The hunt id is reduced to letters, digits, and dashes, and the result must stay inside the media directory.
-        var name = System.Text.RegularExpressions.Regex.Replace(hunt, @"[^\w-]", "_") + ".webm";
+        // Path.GetFileName strips any directory part, so the name cannot carry path separators.
+        var name = Path.GetFileName(System.Text.RegularExpressions.Regex.Replace(hunt, @"[^\w-]", "_") + ".webm");
         var root = Path.GetFullPath(opts.MediaDir);
         var full = Path.GetFullPath(Path.Combine(root, name));
         if (!full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.Ordinal))
