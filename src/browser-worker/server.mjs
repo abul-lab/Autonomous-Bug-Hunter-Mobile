@@ -671,7 +671,8 @@ setInterval(() => {
 
 function send(res, status, obj) {
   res.writeHead(status, { "content-type": "application/json" });
-  res.end(JSON.stringify(obj));
+  // Never return stack traces to HTTP clients; keep them in the local telemetry only.
+  res.end(JSON.stringify(obj, (k, v) => (k === "stack" || k === "stackTrace" ? undefined : v)));
 }
 
 async function readJson(req) {
