@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 75
     steps:
       - name: Autonomous Bug Hunter Release Gate
-        uses: abulslab/Autonomous-Bug-Hunter-Mobile@main
+        uses: abul-lab/Autonomous-Bug-Hunter-Mobile@main
         with:
           api-url: ${{ vars.BUGHUNTER_API }}
           api-key: ${{ secrets.BUGHUNTER_API_KEY }}

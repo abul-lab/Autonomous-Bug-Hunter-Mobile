@@ -1,6 +1,6 @@
 name: "Autonomous Bug Hunter Release Gate"
 description: "AI proposes, deterministic engine verifies. Autonomous functional bug hunting, 2x model-free replays, and release readiness gating for CI/CD."
-author: "abulslab"
+author: "abul-lab"
 
 inputs:
   api-url:

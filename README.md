@@ -1,13 +1,13 @@
 # Autonomous Bug Hunter for Mobile (Android · Appium · UiAutomator2)
 
-[![CI](https://github.com/abulslab/Autonomous-Bug-Hunter-Mobile/actions/workflows/ci.yml/badge.svg)](https://github.com/abulslab/Autonomous-Bug-Hunter-Mobile/actions/workflows/ci.yml)
+[![CI](https://github.com/abul-lab/Autonomous-Bug-Hunter-Mobile/actions/workflows/ci.yml/badge.svg)](https://github.com/abul-lab/Autonomous-Bug-Hunter-Mobile/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Android: Kotlin + Compose APKs](https://img.shields.io/badge/Android-Kotlin%20%2B%20Compose%20APKs-3DDC84.svg)](android/apks/)
 [![Appium: UiAutomator2](https://img.shields.io/badge/Appium-UiAutomator2-663399.svg)](docs/adr/0012-android-appium-execution-surface.md)
 
-**A continuous quality-engineering system for Android mobile applications.** Built directly on the architectural foundation of [`Autonomous-Bug-Hunter-Web`](https://github.com/abulslab/Autonomous-Bug-Hunter-Web), it learns what a mobile application should do from the team's stories and documents, explores it on an **Android Emulator (`Pixel_8`) with Appium (`UiAutomator2`) & ADB** (or fast mobile-viewport sessions in CI), reports only findings it can reproduce without AI, and turns each release into a decision backed by evidence.
+**A continuous quality-engineering system for Android mobile applications.** Built directly on the architectural foundation of [`Autonomous-Bug-Hunter-Playwright`](https://github.com/abul-lab/Autonomous-Bug-Hunter-Playwright), it learns what a mobile application should do from the team's stories and documents, explores it on an **Android Emulator (`Pixel_8`) with Appium (`UiAutomator2`) & ADB** (or fast mobile-viewport sessions in CI), reports only findings it can reproduce without AI, and turns each release into a decision backed by evidence.
 
-This repository is a concrete proof of **architectural reusability** ([ADR 0011: The execution surface is a port](docs/adr/0011-the-execution-surface-is-a-port.md) & [ADR 0012: Android Emulator & Appium Execution Surface](docs/adr/0012-android-appium-execution-surface.md)): 100% of the core QE intelligence layer (versioned knowledge, the app twin, AI understanding & deterministic verifier, invariant rules, predictive twin, API probes, model-free confirmation replay, journeys, baselines, review gate, learning, and release readiness) is reused unchanged across Web and Mobile.
+This repository is a concrete example of **architectural reuse** ([ADR 0011: The execution surface is a port](docs/adr/0011-the-execution-surface-is-a-port.md) & [ADR 0012: Android Emulator & Appium Execution Surface](docs/adr/0012-android-appium-execution-surface.md)): 100% of the core QE intelligence layer (versioned knowledge, the app twin, AI understanding & deterministic verifier, invariant rules, predictive twin, API probes, model-free confirmation replay, journeys, baselines, review gate, learning, and release readiness) is reused unchanged across Web and Mobile.
 
 > **AI proposes, the engine verifies.**
 > Models decide what is worth exploring and what should be true. Deterministic code decides what is a bug, on recorded
@@ -17,12 +17,12 @@ This repository is a concrete proof of **architectural reusability** ([ADR 0011:
 
 ## Architectural Reusability: Web → Mobile
 
-| Layer | Shared with [`Autonomous-Bug-Hunter-Web`](https://github.com/abulslab/Autonomous-Bug-Hunter-Web)? | Mobile Adaptation in `Autonomous-Bug-Hunter-Mobile` |
+| Layer | Shared with [`Autonomous-Bug-Hunter-Playwright`](https://github.com/abul-lab/Autonomous-Bug-Hunter-Playwright)? | Mobile Adaptation in `Autonomous-Bug-Hunter-Mobile` |
 |---|---|---|
-| **Versioned Knowledge (`Projects/`)** | **100% Reused** | Stories & documents from Jira/Confluence or files |
-| **App Twin & Verifier (`Twin/`)** | **100% Reused** | Tracks mobile screens, API endpoints by role, entities, lifecycles, and verified rules |
-| **Predictive Twin & Probes (`Twin/`, `Hunter/Probes.cs`)** | **100% Reused** | Checks role boundaries, lifecycle transitions, price consistency, and API boundary probes |
-| **Confirmation, Journeys, Review, Readiness** | **100% Reused** | Two model-free replays, delta-debugging shrinker, baseline diffing, review gate, CI gate |
+| **Versioned Knowledge (`Projects/`)** | **Reused, lightly adapted** | Stories & documents from Jira/Confluence or files |
+| **App Twin & Verifier (`Twin/`)** | **Reused, lightly adapted** | Tracks mobile screens, API endpoints by role, entities, lifecycles, and verified rules |
+| **Predictive Twin & Probes (`Twin/`, `Hunter/Probes.cs`)** | **Reused, lightly adapted** | Checks role boundaries, lifecycle transitions, price consistency, and API boundary probes |
+| **Confirmation, Journeys, Review, Readiness** | **Reused, lightly adapted** | Two model-free replays, delta-debugging shrinker, baseline diffing, review gate, CI gate |
 | **Execution Surface Port (`src/browser-worker`)** | **Adapted Port** | Manages **Android Emulator (`Pixel_8`)**, **Appium (`UiAutomator2` on `:4723`)**, **ADB (`install`, `am start`, `reverse`, `logcat`, `screencap`)**, and mobile viewport sessions |
 | **Deterministic Oracles (`Hunter/Oracles.cs`)** | **Extended** | Adds `android-crash` (`FATAL EXCEPTION` in `AndroidRuntime`) and `android-anr` (`ANR in` `ActivityManager`) alongside money, validation, and consistency oracles |
 | **Reproduction Specs (`Hunter/SpecWriter.cs`)** | **Extended** | Generates both **Appium WebdriverIO (`UiAutomator2`)** specs targeting the `.apk` package on `Pixel_8` and **Playwright** mobile specs |
@@ -168,7 +168,7 @@ As a GitHub Action:
 
 ```yaml
 - name: Bug Hunter Mobile release gate
-  uses: abulslab/Autonomous-Bug-Hunter-Mobile@main
+  uses: abul-lab/Autonomous-Bug-Hunter-Mobile@main
   with:
     api-url: ${{ vars.BUGHUNTER_API }}
     api-key: ${{ secrets.BUGHUNTER_API_KEY }}

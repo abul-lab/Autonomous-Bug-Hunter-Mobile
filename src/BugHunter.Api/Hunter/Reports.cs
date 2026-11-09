@@ -188,7 +188,7 @@ p,li{color:#334155}summary{cursor:pointer;color:#475569}
             ["version"] = "2.1.0",
             ["runs"] = new JsonArray(new JsonObject
             {
-                ["tool"] = new JsonObject { ["driver"] = new JsonObject { ["name"] = "Autonomous Bug Hunter", ["informationUri"] = "https://github.com/abulslab/Autonomous-Bug-Hunter-Mobile", ["rules"] = new JsonArray(rules.Values.ToArray<JsonNode>()) } },
+                ["tool"] = new JsonObject { ["driver"] = new JsonObject { ["name"] = "Autonomous Bug Hunter", ["informationUri"] = "https://github.com/abul-lab/Autonomous-Bug-Hunter-Mobile", ["rules"] = new JsonArray(rules.Values.ToArray<JsonNode>()) } },
                 ["results"] = results,
                 ["properties"] = new JsonObject { ["hunt"] = h.Id, ["target"] = h.Url, ["costUsd"] = h.Usage.CostUsd }
             })

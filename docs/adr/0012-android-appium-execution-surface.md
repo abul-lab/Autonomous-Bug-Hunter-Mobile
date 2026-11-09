@@ -32,5 +32,5 @@ Status: Accepted
 
 ## Consequences
 
-- **Zero Core Engine Duplication**: 100% of the QE intelligence layer from `Autonomous-Bug-Hunter-Web` is reused unchanged.
+- **Zero Core Engine Duplication**: 100% of the QE intelligence layer from `Autonomous-Bug-Hunter-Playwright` is reused unchanged.
 - **Dual Reproducibility**: Every confirmed finding produces both an Appium (`UiAutomator2`) test for native Android execution and a mobile-viewport Playwright test for fast CI verification.
